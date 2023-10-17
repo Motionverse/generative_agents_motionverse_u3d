@@ -1,0 +1,25 @@
+{
+  "name": "com.readyplayerme.core",
+  "version": "1.3.3",
+  "displayName": "Ready Player Me Core",
+  "description": "Ready Player Me Core is responsible for module management and setting up the SDK for first time use.",
+  "unity": "2020.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://docs.readyplayer.me/ready-player-me/integration-guides/unity-sdk",
+  "changelogUrl": "https://docs.readyplayer.me/ready-player-me/integration-guides/unity-sdk/changelog",
+  "licensesUrl": "https://github.com/readyplayerme/rpm-unity-sdk-core/blob/main/LICENSE.md",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  },
+  "keywords": [
+    "ready player me",
+    "avatar",
+    "character",
+    "metaverse"
+  ],
+  "author": {
+    "name": "Ready Player Me",
+    "email": "info@readyplayer.me",
+    "url": "https://readyplayer.me"
+  }
+}

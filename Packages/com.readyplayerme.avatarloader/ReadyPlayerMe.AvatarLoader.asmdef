@@ -1,0 +1,17 @@
+{
+  "name": "ReadyPlayerMe.AvatarLoader",
+  "references": [
+    "WebView",
+    "glTFast",
+    "ReadyPlayerMe.Core"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

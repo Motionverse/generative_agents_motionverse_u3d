@@ -1,0 +1,23 @@
+{
+  "name": "ReadyPlayerMe.AvatarLoader.Editor.Tests",
+  "rootNamespace": "",
+  "references": [
+    "ReadyPlayerMe.AvatarLoader",
+    "ReadyPlayerMe.Core",
+    "ReadyPlayerMe.Core.Editor",
+    "ReadyPlayerMe.Common.Tests"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

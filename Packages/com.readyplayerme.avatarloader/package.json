@@ -1,0 +1,62 @@
+{
+  "name": "com.readyplayerme.avatarloader",
+  "version": "1.3.4",
+  "displayName": "Ready Player Me Avatar Loader",
+  "description": "Avatar Loader is responsible for downloading, importing and preparing Ready Player Me avatars for use in editor and runtime.",
+  "unity": "2020.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://bit.ly/UnitySDKDocs",
+  "changelogUrl": "https://docs.readyplayer.me/ready-player-me/integration-guides/unity-sdk/changelog",
+  "licensesUrl": "https://github.com/readyplayerme/rpm-unity-sdk-avatar-loader/blob/main/LICENSE.md",
+  "dependencies": {
+    "com.unity.ugui": "1.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  },
+  "keywords": [
+    "avatar",
+    "loader",
+    "rpm"
+  ],
+  "author": {
+    "name": "Ready Player Me",
+    "email": "info@readyplayer.me",
+    "url": "https://readyplayer.me"
+  },
+  "samples": [
+    {
+      "displayName": "QuickStart",
+      "description": "This quick start sample demonstrates how to load an avatar with a third person controller setup.",
+      "path": "Samples~/QuickStart"
+    },
+    {
+      "displayName": "AvatarLoading",
+      "description": "Loads an avatar.",
+      "path": "Samples~/AvatarLoading"
+    },
+    {
+      "displayName": "AvatarLod",
+      "description": "Demonstration of how to implement Avatar LOD's.",
+      "path": "Samples~/AvatarLod"
+    },
+    {
+      "displayName": "AvatarRender",
+      "description": "Creates a 2D render of an avatar using the Render API.",
+      "path": "Samples~/AvatarRender"
+    },
+    {
+      "displayName": "MultipleAvatarLoading",
+      "description": "Loads multiple avatars.",
+      "path": "Samples~/MultipleAvatarLoading"
+    },
+    {
+      "displayName": "MultipleQualityAvatarLoading",
+      "description": "Loads the same avatar multiple times with different quality settings.",
+      "path": "Samples~/MultipleQualityAvatarLoading"
+    },
+    {
+      "displayName": "MultipleAvatarRender",
+      "description": "Loads the multiple avatar render with different settings.",
+      "path": "Samples~/MultipleAvatarRender"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+name: Run Tests
+
+on:
+  pull_request:
+    types: [ opened, reopened ]
+  workflow_dispatch:
+
+jobs:
+  runAllTests:
+    name: ${{ matrix.unityVersion }} ${{ matrix.testMode }} tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode:
+          - playmode
+          - editmode
+        unityVersion:
+          - 2020.3.0f1
+    steps:
+      - name: Checkout Unity-SDK Repository
+        uses: actions/checkout@v3
+        with:
+          repository: "readyplayerme/Unity-SDK"
+          submodules: true
+          fetch-depth: 0
+          ref: develop
+          token: ${{ secrets.DEV_SDK_TOKEN }}
+
+      - name: Get PR dependencies
+        id: pr-dependencies
+        run: |
+          PR_DEPENDENCY=$(awk -v start="\`\`\`Package" -v end="\`\`\`" '{
+            if ($0 ~ start) {p=1; next}
+            if (p && !($0 ~ end)) {print}
+            if ($0 ~ end) {p=0}
+          }' <<\EOF
+          ${{ github.event.pull_request.body }}
+          EOF
+          )
+          echo "dependency=$PR_DEPENDENCY" >> "$GITHUB_OUTPUT"
+      - name: Checkout submodule branch
+        run: |
+          cd Assets/Ready\ Player\ Me/Core
+          git fetch -a
+          git checkout ${{ github.event.pull_request.head.ref }}
+          git pull origin ${{ github.event.pull_request.head.ref }}
+          
+          dependency="${{ steps.pr-dependencies.outputs.dependency }}"
+          if [ -z "$dependency" ]; then
+            echo "No dependency found in PR description"
+            exit 0
+          fi
+          echo "Dependencies found - ${dependency}"
+          
+          AVATAR_LOADER_BRANCH="${dependency#*Avatar Loader: }"
+          AVATAR_LOADER_BRANCH=$(echo "$AVATAR_LOADER_BRANCH" | tr -d '\r')
+          
+          cd ../Avatar\ Loader
+          git fetch -a
+          git checkout "$AVATAR_LOADER_BRANCH"
+          
+          if [ $? -ne 0 ]; then
+            echo "Avatar loader checkout failed, no branch found with name $AVATAR_LOADER_BRANCH"
+            exit 0
+          fi
+
+          git pull origin "$AVATAR_LOADER_BRANCH"
+
+      - name: Cache Project
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      - name: Run Tests
+        uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          testMode: ${{ matrix.testMode }}
+          projectPath: ${{ matrix.projectPath }}
+          checkName: ${{ matrix.unityVersion }} ${{ matrix.testMode }} tests result
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          coverageOptions: "generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+my.assembly.*"
